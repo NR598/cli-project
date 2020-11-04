@@ -30,6 +30,7 @@ class CLI
     puts "'#{user_input}' not found."
     puts ''
     CLI.enter_state
+    return
   end
 
   def self.no_city_found(user_input)
@@ -37,6 +38,7 @@ class CLI
     puts "'#{user_input}' not found."
     puts ''
     CLI.enter_state
+    return
   end
 
   def self.exit
@@ -57,14 +59,19 @@ class CLI
     @user_input = gets.chomp
     if @user_input == '1'
       CLI.view_all_truckstops(user_input)
+      return
     elsif @user_input == '2'
       CLI.search_by_city
+      return
     elsif @user_input == '3'
       Truckstop.clear_truckstop_list
+      return
     elsif @user_input == '4'
       CLI.exit
+      return
     else
       CLI.user_choice(user_input)
+      return
     end
   end
 
@@ -82,15 +89,16 @@ class CLI
       return
     elsif @user_input == '2'
       CLI.user_choice(user_input)
+      return
     else
       CLI.view_all_truckstops(user_input)
+      return
     end
   end
 
   def self.search_by_city
     puts ''
-    puts 'Enter name of city.'
-    puts 'Enter "1" to select state or province.'
+    puts 'Enter name of city or enter "1" to select a new state/province.'
     puts ''
     @user_input = gets.chomp
     if @user_input.length.positive? && @user_input != '1'
@@ -102,12 +110,13 @@ class CLI
       return
     elsif @user_input.length.positive? && @user_input == '1'
       system 'clear'
-      CLI.enter_state
+      Truckstop.clear_truckstop_list
       return
     else
       puts 'No text entered.'
       puts ''
       CLI.search_by_city
+      return
     end
   end
 end
