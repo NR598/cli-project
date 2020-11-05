@@ -1,6 +1,7 @@
 class Truckstop
   attr_accessor :name, :city, :address
 
+
   @@all = []
 
   def initialize(name, city, address)
